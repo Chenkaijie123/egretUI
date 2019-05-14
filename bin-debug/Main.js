@@ -166,9 +166,34 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
+        var _this = this;
         // console.log(egret.getQualifiedClassName(new win.BaseView()))
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
+        var a = {
+            name: "bob",
+            age: 12
+        };
+        var b = {
+            name: function (a) { console.log(a); },
+            age: function (a) { console.log(a); }
+        };
+        var t = (function () {
+            function t() {
+            }
+            return t;
+        }());
+        var pro = Proxy.observe(b, this);
+        pro.age = 12;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            pro.age++;
+        }, this);
+        egret.setTimeout(function () {
+            pro.name = "nickName";
+        }, this, 3000);
+        egret.setTimeout(function () {
+            Proxy.dispose(pro, b, _this);
+        }, this, 6000);
     };
     return Main;
 }(eui.UILayer));

@@ -104,6 +104,23 @@ class Main extends eui.UILayer {
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
 
+
+        let b = {
+            name:(a)=>{console.log(a)},
+            age:(a)=>{console.log(a)}
+        }
+
+        let pro = Proxy.observe<{age:number,name:string}>(b,this);
+        pro.age = 12;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+            pro.age++
+        },this)
+        egret.setTimeout(()=>{
+            pro.name = "nickName"
+        },this,3000)
+        egret.setTimeout(()=>{
+            Proxy.dispose(pro,b,this)
+        },this,6000)
  
     }
 
