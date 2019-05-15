@@ -1,0 +1,4 @@
+class DataObjectMgr {
+	public constructor() {
+	}
+}

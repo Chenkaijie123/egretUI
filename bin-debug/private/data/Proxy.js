@@ -10,47 +10,42 @@ var Proxy = (function () {
      * @param o 监听函数集合，监听类型为各个key值
      * @param callObj 调用者
      * @param proxy 是否在改代理对象上监听，不传穿件新的代理对象
+     * @returns 该函数返回的是源数据的代理对象
      */
     Proxy.observe = function (o, callObj, proxy) {
         var t = proxy || new Proxy();
         var _loop_1 = function (k) {
+            if (!t.value[k])
+                t.value[k] = new ProxyData(k);
+            var temp = t.value[k];
+            temp.on(k, o[k], callObj);
             Object.defineProperty(t, k, {
                 get: function () {
-                    return t.value[k].value();
+                    return temp; //.value();
                 },
                 set: function () {
                     var v = [];
                     for (var _i = 0; _i < arguments.length; _i++) {
                         v[_i] = arguments[_i];
                     }
-                    if (v instanceof Array) {
-                        // if (t.value[k]) {
-                        // 	(t.value[k] as ProxyArray<any>).$clear();
-                        // } else {
-                        // 	t.value[k] = new ProxyArray<any>(k);
-                        // }
-                        t.value[k].$clear();
-                        (_a = t.value[k]).push.apply(_a, v);
+                    var proxyData = temp;
+                    if (proxyData.type == DataType.ARRAY) {
+                        proxyData.$clear();
+                        proxyData.push.apply(proxyData, v);
                     }
                     else {
-                        // if (!t.value[k]) {
-                        // 	t.value[k] = new ProxyData(k);
-                        // }
-                        if (v[0] instanceof Object) {
+                        if (proxyData.type == DataType.OBJECT) {
                             for (var key in v[0]) {
-                                t.value[k].changeValueWithoutEmit(v[0][key], key);
+                                temp.changeValueWithoutEmit(v[0][key], key);
                             }
                         }
                         else {
-                            t.value[k].changeValueWithoutEmit(v[0]);
+                            temp.changeValueWithoutEmit(v[0]);
                         }
-                        t.value[k].emit();
+                        temp.emit();
                     }
-                    var _a;
                 },
             });
-            t.value[k] = new ProxyArray(k);
-            t.value[k].on(k, o[k], callObj);
         };
         for (var k in o) {
             _loop_1(k);

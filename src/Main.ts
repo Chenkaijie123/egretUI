@@ -104,26 +104,41 @@ class Main extends eui.UILayer {
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
 
-
+        let i = new eui.Image()
+        this.addChild(i)
+        i.source = "bg_jpg"
         let b = {
-            name:(a)=>{console.log(a)},
-            age:(a)=>{console.log(a)}
+            name: (a) => { console.log(a) },
+            age: (a) => { console.log(a) },
+            child: (a) => { console.log(a) },
         }
 
-        let pro = Proxy.observe<{age:number,name:string}>(b,this);
+        let pro = Proxy.observe<a>(b, this);
         pro.age = 12;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-            pro.age++
-        },this)
-        egret.setTimeout(()=>{
-            pro.name = "nickName"
-        },this,3000)
-        egret.setTimeout(()=>{
-            Proxy.dispose(pro,b,this)
-        },this,6000)
- 
+        pro.child = [1, 2, 3, 4, 5]
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            pro.call = { name: "bob" }
+            pro.child.push(123)
+        }, this)
+
+        let c = {
+            call: (a) => { console.log(a) }
+        }
+        egret.setTimeout(() => {
+            Proxy.dispose(pro, c, this)
+        }, this, 5000)
+
+        Proxy.observe(c, this, pro);
+        pro.call = { name: "link" }
     }
 
 
 
+}
+
+class a  {
+    age: number;
+    name: string;
+    child: Array<any>;
+    call: Object
 }

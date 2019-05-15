@@ -1,71 +1,83 @@
-class ProxyData {
-	protected data:any;
-	protected info:any;
-	protected listener:{[type:string]:Function} = {}
-	protected caller:{[type:string]:any} = {}
-	public constructor(info:any) {
-		this.info = info;
+/**主要是处理数据代理的数组类型 */
+class ProxyData<T> extends ProxyDataBase {
+	// protected data:T[] = [];
+
+	/**获取源数据长度，如果不是数组或者未初始化返回0 */
+	public get length(): number {
+		let l :number = 0;
+		if(this.is(DataType.ARRAY) && this.data) l = this.data.length;
+		return l;
 	}
 
-	public changeValueWithoutEmit(value:any,key?:string):void{
-		if(key){
-			if(!this.data) this.data = {};
-			this.data[key] = value;
-		}else{
-			this.data = value;
-		}
-		
+	public constructor(info: any) {
+		super(info);
 	}
 
-	public setData(value:any,key?:string){
-		if(key){
-			if(!this.data) this.data = {};
-			this.data[key] = value;
-		}else{
-			this.data = value;
-		}
+	public static set(proxyArray: ProxyData<any>, index: number, ...i: any[]): void {
+		proxyArray.splice(index, 0, ...i);
+		proxyArray.emit();
+	}
+
+	public concat(...i:any[][]):T[]{
+		this.$array();
+		let r =  this.data.concat(...i)
+		this.emit();
+		return r;
+	}
+
+	public map(cb:(value: T, index: number, array: T[])=>T,obj?:any):any[]{
+		this.$array();
+		let r = (<Array<any>>this.data).map(cb,obj);
+		// this.emit();
+		return r;
+	}
+
+	public pop(): T {
+		this.$array();
+		let r = this.data.pop();
+		this.emit();
+		return r;
+	}
+
+	public push(...v: T[]): void {
+		this.$array();
+		this.data.push(...v);
 		this.emit();
 	}
 
-	public on(type:string,fn:Function,caller:any):boolean{
-		if(this.has(type,fn,caller)) return false;
-		let listener = this.listener;
-		let callers = this.caller;
-		listener[type] = fn;
-		callers[type] = caller;
-		return true;
+	public shift(): T {
+		this.$array();
+		let r = this.data.shift()
+		this.emit();
+		return r;
 	}
 
-	public off(type:string,fn:Function,caller:any):void{
-		if(!this.has(type,fn,caller)) return;
-		delete this.caller[type];
-		delete this.listener[type];
+	public unshift(...v: T[]): void {
+		this.$array();
+		this.data.unshift(...v);
+		this.emit();
 	}
 
-	public has(type:string,fn:Function,caller:any):boolean{
-		let listener = this.listener;
-		let callers = this.caller;
-		return listener[type] == fn || callers[type] == caller;
+
+	public splice(index: number, length: number = 0, ...i: T[]): T[] {
+		this.$array();
+		let r = this.data.splice(index, length, ...i);
+		this.emit();
+		return r;
 	}
 
-	public clear():void{
-		this.data = null;
-		this.caller = null;
-		this.listener = null;
-		this.info = null;
+	/**设置数组信息 */
+	private $array(): void {
+		if (!this.data) this.data = [];
+		this.dataType = DataType.ARRAY;
 	}
 
-	/**执行监听事件 */
-	public emit():void{
-		let fn = this.listener;
-		let caller = this.caller;
-		let args = this.data;
-		for(let k in fn){
-			fn[k].call(caller[k],args)
-		}
-	}
 
-	public value():any{
-		return this.data;
+	/**
+	 * @private
+	 */
+	public $clear(): void {
+		if (this.dataType == DataType.ARRAY)
+			this.data.length = 0;
 	}
 }

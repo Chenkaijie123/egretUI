@@ -166,36 +166,41 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
-        var _this = this;
         // console.log(egret.getQualifiedClassName(new win.BaseView()))
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
-        var a = {
-            name: "bob",
-            age: 12
-        };
+        var _this = this;
+        var i = new eui.Image();
+        this.addChild(i);
+        i.source = "bg_jpg";
         var b = {
             name: function (a) { console.log(a); },
-            age: function (a) { console.log(a); }
+            age: function (a) { console.log(a); },
+            child: function (a) { console.log(a); },
         };
-        var t = (function () {
-            function t() {
-            }
-            return t;
-        }());
         var pro = Proxy.observe(b, this);
         pro.age = 12;
+        pro.child = [1, 2, 3, 4, 5];
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            pro.age++;
+            pro.call = { name: "bob" };
+            pro.child.push(123);
         }, this);
+        var c = {
+            call: function (a) { console.log(a); }
+        };
         egret.setTimeout(function () {
-            pro.name = "nickName";
-        }, this, 3000);
-        egret.setTimeout(function () {
-            Proxy.dispose(pro, b, _this);
-        }, this, 6000);
+            Proxy.dispose(pro, c, _this);
+        }, this, 5000);
+        Proxy.observe(c, this, pro);
+        pro.call = { name: "link" };
     };
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
+var a = (function () {
+    function a() {
+    }
+    return a;
+}());
+__reflect(a.prototype, "a");
 //# sourceMappingURL=Main.js.map

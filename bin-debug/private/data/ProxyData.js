@@ -1,72 +1,114 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var ProxyData = (function () {
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+/**主要是处理数据代理的数组类型 */
+var ProxyData = (function (_super) {
+    __extends(ProxyData, _super);
     function ProxyData(info) {
-        this.listener = {};
-        this.caller = {};
-        this.info = info;
+        return _super.call(this, info) || this;
     }
-    ProxyData.prototype.changeValueWithoutEmit = function (value, key) {
-        if (key) {
-            if (!this.data)
-                this.data = {};
-            this.data[key] = value;
+    Object.defineProperty(ProxyData.prototype, "length", {
+        // protected data:T[] = [];
+        /**获取源数据长度，如果不是数组或者未初始化返回0 */
+        get: function () {
+            var l = 0;
+            if (this.is(DataType.ARRAY) && this.data)
+                l = this.data.length;
+            return l;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProxyData.set = function (proxyArray, index) {
+        var i = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            i[_i - 2] = arguments[_i];
         }
-        else {
-            this.data = value;
-        }
+        proxyArray.splice.apply(proxyArray, [index, 0].concat(i));
+        proxyArray.emit();
     };
-    ProxyData.prototype.setData = function (value, key) {
-        if (key) {
-            if (!this.data)
-                this.data = {};
-            this.data[key] = value;
+    ProxyData.prototype.concat = function () {
+        var i = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            i[_i] = arguments[_i];
         }
-        else {
-            this.data = value;
-        }
+        this.$array();
+        var r = (_a = this.data).concat.apply(_a, i);
         this.emit();
+        return r;
+        var _a;
     };
-    ProxyData.prototype.on = function (type, fn, caller) {
-        if (this.has(type, fn, caller))
-            return false;
-        var listener = this.listener;
-        var callers = this.caller;
-        listener[type] = fn;
-        callers[type] = caller;
-        return true;
+    ProxyData.prototype.map = function (cb, obj) {
+        this.$array();
+        var r = this.data.map(cb, obj);
+        // this.emit();
+        return r;
     };
-    ProxyData.prototype.off = function (type, fn, caller) {
-        if (!this.has(type, fn, caller))
-            return;
-        delete this.caller[type];
-        delete this.listener[type];
+    ProxyData.prototype.pop = function () {
+        this.$array();
+        var r = this.data.pop();
+        this.emit();
+        return r;
     };
-    ProxyData.prototype.has = function (type, fn, caller) {
-        var listener = this.listener;
-        var callers = this.caller;
-        return listener[type] == fn || callers[type] == caller;
-    };
-    ProxyData.prototype.clear = function () {
-        this.data = null;
-        this.caller = null;
-        this.listener = null;
-        this.info = null;
-    };
-    /**执行监听事件 */
-    ProxyData.prototype.emit = function () {
-        var fn = this.listener;
-        var caller = this.caller;
-        var args = this.data;
-        for (var k in fn) {
-            fn[k].call(caller[k], args);
+    ProxyData.prototype.push = function () {
+        var v = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            v[_i] = arguments[_i];
         }
+        this.$array();
+        (_a = this.data).push.apply(_a, v);
+        this.emit();
+        var _a;
     };
-    ProxyData.prototype.value = function () {
-        return this.data;
+    ProxyData.prototype.shift = function () {
+        this.$array();
+        var r = this.data.shift();
+        this.emit();
+        return r;
+    };
+    ProxyData.prototype.unshift = function () {
+        var v = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            v[_i] = arguments[_i];
+        }
+        this.$array();
+        (_a = this.data).unshift.apply(_a, v);
+        this.emit();
+        var _a;
+    };
+    ProxyData.prototype.splice = function (index, length) {
+        if (length === void 0) { length = 0; }
+        var i = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            i[_i - 2] = arguments[_i];
+        }
+        this.$array();
+        var r = (_a = this.data).splice.apply(_a, [index, length].concat(i));
+        this.emit();
+        return r;
+        var _a;
+    };
+    /**设置数组信息 */
+    ProxyData.prototype.$array = function () {
+        if (!this.data)
+            this.data = [];
+        this.dataType = DataType.ARRAY;
+    };
+    /**
+     * @private
+     */
+    ProxyData.prototype.$clear = function () {
+        if (this.dataType == DataType.ARRAY)
+            this.data.length = 0;
     };
     return ProxyData;
-}());
+}(ProxyDataBase));
 __reflect(ProxyData.prototype, "ProxyData");
 //# sourceMappingURL=ProxyData.js.map
