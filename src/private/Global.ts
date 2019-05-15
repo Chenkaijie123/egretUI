@@ -4,4 +4,3 @@ class Global {
 	}
 }
 
-let ComposeMgr :mgr.CompomentMgr = new mgr.CompomentMgr();
