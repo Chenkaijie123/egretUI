@@ -1,4 +1,4 @@
 /**管理器 */
 interface IMgr{
-	init():void
+	// init():void
 }

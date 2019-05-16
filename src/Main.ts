@@ -104,32 +104,43 @@ class Main extends eui.UILayer {
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
 
-        let i = new eui.Image()
-        this.addChild(i)
-        i.source = "bg_jpg"
-        let b = {
-            name: (a) => { console.log(a) },
-            age: (a) => { console.log(a) },
-            child: (a) => { console.log(a) },
+        Model.ins.initMgr().initDataProxy();
+        function log(a){
+            console.log(a)
         }
-
-        let pro = Proxy.observe<a>(b, this);
-        pro.age = 12;
-        pro.child = [1, 2, 3, 4, 5]
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            pro.call = { name: "bob" }
-            pro.child.push(123)
-        }, this)
-
-        let c = {
-            call: (a) => { console.log(a) }
+        let a = {
+            age:log,
+            name:log,
+            play:log,
+            arr:log
         }
-        egret.setTimeout(() => {
-            Proxy.dispose(pro, c, this)
-        }, this, 5000)
+        Proxy.observe(a,this,DataModel.TestData)
+        egret.setTimeout(()=>{
+            DataModel.TestData.age = 12;
+        },this,3000)
+        egret.setTimeout(()=>{
+            DataModel.TestData.name = "try";
+            DataModel.TestData.play = {type:12,info:"child"}
+            DataModel.TestData.arr = [1,2,3]
+        },this,4000)
+        egret.setTimeout(()=>{
+            DataModel.TestData.play.info = "littleChild"
+            DataModel.TestData.arr[1] = 12
+        },this,4000)
+        this.te(100,100);
+        this.te(200,200);
+        this.te(300,300);
+        egret.setTimeout(this.te,this,5000,600,600)
+        
+    }
 
-        Proxy.observe(c, this, pro);
-        pro.call = { name: "link" }
+    private async te(x,y){
+        let clip = new egret.MovieClip()
+        clip.x = x;
+        clip.y = y;
+        this.addChild(clip);
+        ClipMgr.setClipData("eff_bossfz_001_json","eff_bossfz_001_png",clip,-1)
+
     }
 
 

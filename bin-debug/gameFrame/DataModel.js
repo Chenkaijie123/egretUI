@@ -1,10 +1,10 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var Global = (function () {
-    function Global() {
+var DataModel = (function () {
+    function DataModel() {
     }
-    return Global;
+    return DataModel;
 }());
-__reflect(Global.prototype, "Global");
-//# sourceMappingURL=Global.js.map
+__reflect(DataModel.prototype, "DataModel");
+//# sourceMappingURL=DataModel.js.map

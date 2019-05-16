@@ -21,20 +21,21 @@ var Proxy = (function () {
             temp.on(k, o[k], callObj);
             Object.defineProperty(t, k, {
                 get: function () {
-                    return temp; //.value();
+                    if (temp.type == DataType.ARRAY)
+                        return temp;
+                    return temp.value();
                 },
                 set: function () {
                     var v = [];
                     for (var _i = 0; _i < arguments.length; _i++) {
                         v[_i] = arguments[_i];
                     }
-                    var proxyData = temp;
-                    if (proxyData.type == DataType.ARRAY) {
-                        proxyData.$clear();
-                        proxyData.push.apply(proxyData, v);
+                    if (temp.type == DataType.ARRAY) {
+                        temp.$clear();
+                        temp.push.apply(temp, v);
                     }
                     else {
-                        if (proxyData.type == DataType.OBJECT) {
+                        if (temp.type == DataType.OBJECT) {
                             for (var key in v[0]) {
                                 temp.changeValueWithoutEmit(v[0][key], key);
                             }

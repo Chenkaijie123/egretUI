@@ -19,15 +19,15 @@ class Proxy {
 			temp.on(k, o[k], callObj);
 			Object.defineProperty(t, k, {
 				get() {
-					return temp;//.value();
+					if(temp.type == DataType.ARRAY) return temp;
+					return temp.value();
 				},
 				set(...v) {
-					let proxyData: ProxyData<any> = temp;
-					if (proxyData.type == DataType.ARRAY) {
-						proxyData.$clear();
-						proxyData.push(...v);
+					if (temp.type == DataType.ARRAY) {
+						temp.$clear();
+						temp.push(...v);
 					} else {
-						if (proxyData.type == DataType.OBJECT) {
+						if (temp.type == DataType.OBJECT) {
 							for (let key in v[0]) {
 								temp.changeValueWithoutEmit(v[0][key], key);
 							}

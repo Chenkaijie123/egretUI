@@ -132,9 +132,19 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
+		},
+		{
+			"url": "assets/clip/eff_bossfz_001.png",
+			"type": "image",
+			"name": "eff_bossfz_001_png"
+		},
+		{
+			"url": "assets/clip/eff_bossfz_001.json",
+			"type": "json",
+			"name": "eff_bossfz_001_json"
 		}
 	]
 }

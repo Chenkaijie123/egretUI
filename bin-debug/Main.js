@@ -169,30 +169,46 @@ var Main = (function (_super) {
         // console.log(egret.getQualifiedClassName(new win.BaseView()))
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
-        var _this = this;
-        var i = new eui.Image();
-        this.addChild(i);
-        i.source = "bg_jpg";
-        var b = {
-            name: function (a) { console.log(a); },
-            age: function (a) { console.log(a); },
-            child: function (a) { console.log(a); },
+        Model.ins.initMgr().initDataProxy();
+        function log(a) {
+            console.log(a);
+        }
+        var a = {
+            age: log,
+            name: log,
+            play: log,
+            arr: log
         };
-        var pro = Proxy.observe(b, this);
-        pro.age = 12;
-        pro.child = [1, 2, 3, 4, 5];
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            pro.call = { name: "bob" };
-            pro.child.push(123);
-        }, this);
-        var c = {
-            call: function (a) { console.log(a); }
-        };
+        Proxy.observe(a, this, DataModel.TestData);
         egret.setTimeout(function () {
-            Proxy.dispose(pro, c, _this);
-        }, this, 5000);
-        Proxy.observe(c, this, pro);
-        pro.call = { name: "link" };
+            DataModel.TestData.age = 12;
+        }, this, 3000);
+        egret.setTimeout(function () {
+            DataModel.TestData.name = "try";
+            DataModel.TestData.play = { type: 12, info: "child" };
+            DataModel.TestData.arr = [1, 2, 3];
+        }, this, 4000);
+        egret.setTimeout(function () {
+            DataModel.TestData.play.info = "littleChild";
+            DataModel.TestData.arr[1] = 12;
+        }, this, 4000);
+        this.te(100, 100);
+        this.te(200, 200);
+        this.te(300, 300);
+        egret.setTimeout(this.te, this, 5000, 600, 600);
+    };
+    Main.prototype.te = function (x, y) {
+        return __awaiter(this, void 0, void 0, function () {
+            var clip;
+            return __generator(this, function (_a) {
+                clip = new egret.MovieClip();
+                clip.x = x;
+                clip.y = y;
+                this.addChild(clip);
+                ClipMgr.setClipData("eff_bossfz_001_json", "eff_bossfz_001_png", clip, -1);
+                return [2 /*return*/];
+            });
+        });
     };
     return Main;
 }(eui.UILayer));
