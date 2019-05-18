@@ -1,5 +1,8 @@
 namespace win {
-	/**显示组件基类 */
+	/**
+	 * 显示组件基类
+	 * 该类以及该类的子类要用组件管理器调用
+	 */
 	export class BaseCompoment extends eui.Component implements ICompoment {
 		// autoDestory: boolean;
 		/**@private */
@@ -17,14 +20,15 @@ namespace win {
 			this.$on(type, call);
 			return this;
 		}
+		/**初始化 */
 		public init(): void { }
-		public clear(): void { }
-		public destory(): void { }
+		protected clear(): void { }
+		protected destory(): void { }
 
 		/**初始化，界面创建时执行一次 */
 		protected childrenCreated(): void {
 			super.childrenCreated();
-			this.init();
+			// this.init();
 		}
 
 		/**@private */

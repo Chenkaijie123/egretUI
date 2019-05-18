@@ -59,7 +59,7 @@ var mgr;
                         case 0: return [4 /*yield*/, this.getClipData(json, texture, clip, name)];
                         case 1:
                             _a.sent();
-                            clip.play(playTime);
+                            clip.play(playTime || 1);
                             return [2 /*return*/];
                     }
                 });

@@ -15,8 +15,8 @@
 	"game": [
 		"bin-debug/private/data/ProxyDataBase.js",
 		"bin-debug/private/win/BaseCompoment.js",
-		"bin-debug/private/mgr/BaseMgr.js",
 		"bin-debug/private/data/ProxyData.js",
+		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/gameFrame/DataModel.js",
 		"bin-debug/gameFrame/Model.js",
@@ -30,11 +30,11 @@
 		"bin-debug/private/interface/IMgr.js",
 		"bin-debug/private/interface/IProxyData.js",
 		"bin-debug/private/interface/Iview.js",
-		"bin-debug/Main.js",
+		"bin-debug/private/mgr/BaseMgr.js",
 		"bin-debug/private/mgr/ClipDataMgr.js",
 		"bin-debug/private/mgr/CompomentMgr.js",
 		"bin-debug/private/mgr/DataObjectMgr.js",
-		"bin-debug/Platform.js",
+		"bin-debug/Main.js",
 		"bin-debug/private/win/BaseView.js"
 	]
 }
