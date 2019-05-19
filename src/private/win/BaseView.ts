@@ -20,7 +20,7 @@ namespace win {
 			this.close();
 			//加入窗口管理器队列,清理面板由管理器执行
 			if (this.autoDestory) {
-				ComposeMgr.push(this);
+				CompomentMgr.push(this);
 			}else{
 				this.$clear();
 			}

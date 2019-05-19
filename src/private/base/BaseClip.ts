@@ -93,7 +93,6 @@ class BaseClip extends win.BaseCompoment implements IClip {
 
 	}
 	protected destory(): void {
-		this.clear();
 		this.$clip = null;
 		this.NULLFN = null;
 		this.$src = null;

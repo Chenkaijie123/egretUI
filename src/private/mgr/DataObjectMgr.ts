@@ -15,7 +15,7 @@ namespace mgr {
 		public push(...item:any[]):void{
 			for(let i of item){
 				for(let k in i){
-					delete i[k]
+					delete i[k];
 				}
 				this.pool.push(i);
 			}

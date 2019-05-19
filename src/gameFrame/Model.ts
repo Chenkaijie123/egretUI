@@ -11,7 +11,7 @@ class Model {
 	/**初始化管理器 */
 	public initMgr(): Model {
 		dataFactory = new mgr.DataObjectMgr();
-		ComposeMgr = new mgr.CompomentMgr();
+		CompomentMgr = new mgr.CompomentMgr();
 		ClipMgr = new mgr.ClipfactoryMgr();
 		return this;
 	}
@@ -24,5 +24,5 @@ class Model {
 }
 
 let dataFactory: mgr.DataObjectMgr
-let ComposeMgr: mgr.CompomentMgr
+let CompomentMgr: mgr.CompomentMgr
 let ClipMgr:mgr.ClipfactoryMgr;

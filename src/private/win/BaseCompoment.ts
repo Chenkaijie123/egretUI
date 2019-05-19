@@ -13,7 +13,7 @@ namespace win {
 		}
 		/**把对象加入到组件管理器中由管理器统一管理 */
 		public release(): void {
-			ComposeMgr.push(this);
+			CompomentMgr.push(this);
 		}
 		/**添加监听事件 */
 		public on(type: string, call: Function): BaseCompoment {
