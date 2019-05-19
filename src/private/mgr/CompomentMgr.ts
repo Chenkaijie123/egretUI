@@ -31,7 +31,7 @@ namespace mgr {
 		 * 获取对象
 		 * @param v Function
 		 */
-		public pop<T extends egret.DisplayObject>(v: any): T {
+		public pop<T extends egret.DisplayObject>(v: typeof egret.DisplayObject): T {
 			let ls = this.$pool[v.prototype["__class__"]];
 			let res: any;
 			if (!ls || !ls.length) res = new v;

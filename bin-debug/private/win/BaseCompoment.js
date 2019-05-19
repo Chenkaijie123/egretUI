@@ -10,7 +10,10 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var win;
 (function (win) {
-    /**显示组件基类 */
+    /**
+     * 显示组件基类
+     * 该类以及该类的子类要用组件管理器调用
+     */
     var BaseCompoment = (function (_super) {
         __extends(BaseCompoment, _super);
         function BaseCompoment() {
@@ -27,13 +30,14 @@ var win;
             this.$on(type, call);
             return this;
         };
+        /**初始化 */
         BaseCompoment.prototype.init = function () { };
         BaseCompoment.prototype.clear = function () { };
         BaseCompoment.prototype.destory = function () { };
         /**初始化，界面创建时执行一次 */
         BaseCompoment.prototype.childrenCreated = function () {
             _super.prototype.childrenCreated.call(this);
-            this.init();
+            // this.init();
         };
         /**@private */
         BaseCompoment.prototype.$clear = function () {

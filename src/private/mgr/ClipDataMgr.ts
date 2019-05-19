@@ -15,8 +15,8 @@ namespace mgr {
 		 * @param clip 需要添加动画数据的序列帧对象
 		 * @param playTime 播放次数
 		 */
-		public async setClipData(json: string, texture: string,clip: egret.MovieClip,playTime:number,name?:string):Promise<any>{
-			await this.getClipData(json,texture,clip,name);
+		public async setClipData(json: string, texture: string, clip: egret.MovieClip, playTime?: number, name?: string): Promise<any> {
+			await this.getClipData(json, texture, clip, name);
 			clip.play(playTime || 1);
 		}
 
@@ -28,36 +28,42 @@ namespace mgr {
 		 * @param clip 需要添加动画数据的序列帧对象
 		 */
 		public async getClipData(json: string, texture: string, clip?: egret.MovieClip, name?: string): Promise<egret.MovieClipData> {
-			let key: string = json.concat(texture);
-			let map = this.map;
 			let clipData: egret.MovieClipData;
-			//不存在缓存中需要加载文件
-			if (!map[key]) {
-				//已经在加载
-				if (this.check(key)) {
-					await new Promise((resolve, reject) => {
-						let fn: Function = (e: egret.Event) => {
-							this.dataEvent.removeEventListener(key, fn, this);
-							resolve();
-						}
-						this.dataEvent.addEventListener(key, fn, this);
-					})
-				} else {
-					//标志正在加载
-					this.isLoading[key] = 1;
-					let [j, t] = await Promise.all(
-						[
-							RES.getResAsync(json),
-							RES.getResAsync(texture)
-						]
-					);
-					let clipFactory = new egret.MovieClipDataFactory(j, t);
-					map[key] = clipFactory;
+			try {
+				let key: string = json.concat(texture);
+				let map = this.map;
+				//不存在缓存中需要加载文件
+				if (!map[key]) {
+					//已经在加载
+					if (this.check(key)) {
+						await new Promise((resolve, reject) => {
+							let fn: Function = (e: egret.Event) => {
+								this.dataEvent.removeEventListener(key, fn, this);
+								resolve();
+							}
+							this.dataEvent.addEventListener(key, fn, this);
+						})
+					} else {
+						//标志正在加载
+						this.isLoading[key] = 1;
+						let [j, t] = await Promise.all(
+							[
+								RES.getResAsync(json),
+								RES.getResAsync(texture)
+							]
+						);
+						let clipFactory = new egret.MovieClipDataFactory(j, t);
+						map[key] = clipFactory;
+					}
 				}
+				clipData = map[key].generateMovieClipData(name || "");
+				clip && (clip.movieClipData = clipData);
+				this.loadEnd(key);
+			} catch (e) {
+				console.log(e);
+				//出错时默认数据
+				clipData = new egret.MovieClipData();
 			}
-			clipData = map[key].generateMovieClipData(name || "");
-			clip && (clip.movieClipData = clipData);
-			this.loadEnd(key);
 			return Promise.resolve(clipData);
 		}
 

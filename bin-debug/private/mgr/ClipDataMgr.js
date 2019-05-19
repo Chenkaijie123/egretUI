@@ -75,27 +75,28 @@ var mgr;
         ClipfactoryMgr.prototype.getClipData = function (json, texture, clip, name) {
             return __awaiter(this, void 0, void 0, function () {
                 var _this = this;
-                var key, map, clipData, _a, j, t, clipFactory;
+                var clipData, key_1, map, _a, j, t, clipFactory, e_1;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
-                            key = json.concat(texture);
+                            _b.trys.push([0, 5, , 6]);
+                            key_1 = json.concat(texture);
                             map = this.map;
-                            if (!!map[key]) return [3 /*break*/, 4];
-                            if (!this.check(key)) return [3 /*break*/, 2];
+                            if (!!map[key_1]) return [3 /*break*/, 4];
+                            if (!this.check(key_1)) return [3 /*break*/, 2];
                             return [4 /*yield*/, new Promise(function (resolve, reject) {
                                     var fn = function (e) {
-                                        _this.dataEvent.removeEventListener(key, fn, _this);
+                                        _this.dataEvent.removeEventListener(key_1, fn, _this);
                                         resolve();
                                     };
-                                    _this.dataEvent.addEventListener(key, fn, _this);
+                                    _this.dataEvent.addEventListener(key_1, fn, _this);
                                 })];
                         case 1:
                             _b.sent();
                             return [3 /*break*/, 4];
                         case 2:
                             //标志正在加载
-                            this.isLoading[key] = 1;
+                            this.isLoading[key_1] = 1;
                             return [4 /*yield*/, Promise.all([
                                     RES.getResAsync(json),
                                     RES.getResAsync(texture)
@@ -103,13 +104,19 @@ var mgr;
                         case 3:
                             _a = _b.sent(), j = _a[0], t = _a[1];
                             clipFactory = new egret.MovieClipDataFactory(j, t);
-                            map[key] = clipFactory;
+                            map[key_1] = clipFactory;
                             _b.label = 4;
                         case 4:
-                            clipData = map[key].generateMovieClipData(name || "");
+                            clipData = map[key_1].generateMovieClipData(name || "");
                             clip && (clip.movieClipData = clipData);
-                            this.loadEnd(key);
-                            return [2 /*return*/, Promise.resolve(clipData)];
+                            this.loadEnd(key_1);
+                            return [3 /*break*/, 6];
+                        case 5:
+                            e_1 = _b.sent();
+                            console.log(e_1);
+                            clipData = new egret.MovieClipData();
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/, Promise.resolve(clipData)];
                     }
                 });
             });

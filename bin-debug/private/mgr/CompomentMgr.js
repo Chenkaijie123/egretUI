@@ -39,6 +39,7 @@ var mgr;
                 res = new v;
             else
                 res = ls.pop();
+            res.init();
             return res;
         };
         /**获取界面实例 */

@@ -145,6 +145,46 @@
 			"url": "assets/clip/eff_bossfz_001.json",
 			"type": "json",
 			"name": "eff_bossfz_001_json"
+		},
+		{
+			"url": "assets/clip/00110.png",
+			"type": "image",
+			"name": "00110_png"
+		},
+		{
+			"url": "assets/clip/00111.png",
+			"type": "image",
+			"name": "00111_png"
+		},
+		{
+			"url": "assets/clip/00112.png",
+			"type": "image",
+			"name": "00112_png"
+		},
+		{
+			"url": "assets/clip/00113.png",
+			"type": "image",
+			"name": "00113_png"
+		},
+		{
+			"url": "assets/clip/00110.json",
+			"type": "json",
+			"name": "00110_json"
+		},
+		{
+			"url": "assets/clip/00113.json",
+			"type": "json",
+			"name": "00113_json"
+		},
+		{
+			"url": "assets/clip/00112.json",
+			"type": "json",
+			"name": "00112_json"
+		},
+		{
+			"url": "assets/clip/00111.json",
+			"type": "json",
+			"name": "00111_json"
 		}
 	]
 }

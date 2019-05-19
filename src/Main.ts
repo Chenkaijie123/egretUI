@@ -105,41 +105,55 @@ class Main extends eui.UILayer {
         // console.log(new window["win"]["BaseView"])
 
         Model.ins.initMgr().initDataProxy();
-        function log(a){
+        function log(a) {
             console.log(a)
         }
         let a = {
-            age:log,
-            name:log,
-            play:log,
-            arr:log
+            age: log,
+            name: log,
+            play: log,
+            arr: log
         }
-        Proxy.observe(a,this,DataModel.TestData)
-        egret.setTimeout(()=>{
+        Proxy.observe(a, this, DataModel.TestData)
+        egret.setTimeout(() => {
             DataModel.TestData.age = 12;
-        },this,3000)
-        egret.setTimeout(()=>{
+        }, this, 3000)
+        egret.setTimeout(() => {
             DataModel.TestData.name = "try";
-            DataModel.TestData.play = {type:12,info:"child"}
-            DataModel.TestData.arr = [1,2,3]
-        },this,4000)
-        egret.setTimeout(()=>{
+            DataModel.TestData.play = { type: 12, info: "child" }
+            DataModel.TestData.arr = [1, 2, 3]
+        }, this, 4000)
+        egret.setTimeout(() => {
             DataModel.TestData.play.info = "littleChild"
             DataModel.TestData.arr[1] = 12
-        },this,4000)
-        this.te(100,100);
-        this.te(200,200);
-        this.te(300,300);
-        egret.setTimeout(this.te,this,5000,600,600)
-        
+        }, this, 4000)
+        let c = ComposeMgr.pop<BaseClip>(BaseClip);
+        c.source({ json: "eff_bossfz_001_json", texture: "eff_bossfz_001_png" })
+        // let c = ComposeMgr.pop<eui.Image>(eui.Image);
+        c.x = 300;
+        c.y = 600;
+        this.addChild(c);
+        c.scaleX = c.scaleY = 3;
+        c.source({ json: "00110_json", texture: "00110_png" });
+        egret.setTimeout(() => {
+            c.source({ json: "00111_json", texture: "00111_png" });
+        }, this, 200)
+        egret.setTimeout(() => {
+            c.source({ json: "00112_json", texture: "00112_png" });
+        }, this, 310)
+
+        egret.setTimeout(() => {
+            c.source({ json: "001131_json", texture: "00113_png" });
+        }, this, 300)
+
     }
 
-    private async te(x,y){
+    private async te(x, y) {
         let clip = new egret.MovieClip()
         clip.x = x;
         clip.y = y;
         this.addChild(clip);
-        ClipMgr.setClipData("eff_bossfz_001_json","eff_bossfz_001_png",clip,-1)
+        ClipMgr.setClipData("eff_bossfz_001_json", "eff_bossfz_001_png", clip, -1)
 
     }
 
@@ -147,7 +161,7 @@ class Main extends eui.UILayer {
 
 }
 
-class a  {
+class a {
     age: number;
     name: string;
     child: Array<any>;
