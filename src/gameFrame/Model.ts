@@ -18,6 +18,7 @@ class Model {
 
 	/**初始化数据模型 */
 	public initDataProxy():Model{
+		globalData = new GlobalData();
 		DataModel.TestData = new Proxy();
 		return this;
 	}
@@ -26,3 +27,4 @@ class Model {
 let dataFactory: mgr.DataObjectMgr
 let CompomentMgr: mgr.CompomentMgr
 let ClipMgr:mgr.ClipfactoryMgr;
+let globalData:GlobalData;

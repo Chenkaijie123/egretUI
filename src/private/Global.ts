@@ -1,6 +1,0 @@
-
-class Global {
-	public constructor() {
-	}
-}
-

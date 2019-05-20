@@ -9,15 +9,24 @@ interface IBehavior{
 	/**速度 */
 	speed:number;
 
-	setAppearence():void;
+	setAppearence?(behavior?:Behavior):void;
 
 }
 
 enum direction{
-	up,down,left,right,up_right,down_right,down_left,up_left
+	up,
+	up_right,
+	right,
+	down_right,
+	down,
+	down_left,
+	left,
+	up_left,
+	keep
 }
 
 enum behaviorType{
 	attack,
 	run,
+	stand,
 }
