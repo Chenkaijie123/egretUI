@@ -104,7 +104,10 @@ class Main extends eui.UILayer {
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
 
-        Model.ins.initMgr().initDataProxy();
+        Main.MAIN = this;
+        Model.ins.initMgr().initDataProxy().initLayer();
+        globalData.stageWidth = this.stage.width;
+        globalData.stageHeight = this.stage.height;
         function log(a) {
             console.log(a)
         }
@@ -128,8 +131,27 @@ class Main extends eui.UILayer {
             DataModel.TestData.arr[1] = 12
         }, this, 4000)
 
+        // let map = new MapContainer();
+        // this.addChild(map);
+        // this.Map = map;
+        let role = CompomentMgr.pop<Actor>(Actor)
+        this.addChild(role);
+        role.y = globalData.stageHeight << 1;
+        role.x = globalData.stageWidth << 1;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,(e:egret.TouchEvent)=>{
+            role.play(behaviorType.run,e.stageX,e.stageY);
+        },this)
 
+        let r= [{name:"bob"},{name:"lili"}]
+        let b = {name:"test"}
+        r.push(b)
+        let index = r.indexOf(b)
+        let idx = r.indexOf({name:"bob"})
+        console.log(index,idx)
+        
     }
+    public static MAIN:Main;
+    // private Map:MapContainer;
 
     private async te(x, y) {
         let clip = new egret.MovieClip()

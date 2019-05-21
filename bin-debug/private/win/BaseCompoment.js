@@ -23,7 +23,7 @@ var win;
         }
         /**把对象加入到组件管理器中由管理器统一管理 */
         BaseCompoment.prototype.release = function () {
-            ComposeMgr.push(this);
+            CompomentMgr.push(this);
         };
         /**添加监听事件 */
         BaseCompoment.prototype.on = function (type, call) {

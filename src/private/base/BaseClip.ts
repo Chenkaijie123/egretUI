@@ -98,6 +98,7 @@ class BaseClip extends win.BaseCompoment implements IClip {
 	}
 
 	private $playComplete(): void {
+		this.gotoAndStop(-1);
 		if (this.$playEnd && this.$playEnd()) {
 			this.$playEnd = null;
 		}

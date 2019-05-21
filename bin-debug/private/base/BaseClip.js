@@ -45,6 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var BaseClip = (function (_super) {
     __extends(BaseClip, _super);
+    // private NULLFN(e: egret.Event): void { };
     function BaseClip() {
         var _this = _super.call(this) || this;
         _this.$playTime = -1;
@@ -53,8 +54,6 @@ var BaseClip = (function (_super) {
         _this.$clip = c;
         return _this;
     }
-    BaseClip.prototype.NULLFN = function (e) { };
-    ;
     Object.defineProperty(BaseClip.prototype, "frameRate", {
         get: function () {
             return this.$clip.frameRate;
@@ -139,20 +138,29 @@ var BaseClip = (function (_super) {
         configurable: true
     });
     BaseClip.prototype.init = function () {
-        this.$playEnd = this.$loopHandle = this.NULLFN;
-        this.$clip.addEventListener(egret.Event.COMPLETE, this.$playEnd, this);
-        this.$clip.addEventListener(egret.Event.LOOP_COMPLETE, this.$loopHandle, this);
+        this.$playEnd = this.$loopHandle = null;
+        this.$clip.addEventListener(egret.Event.COMPLETE, this.$playComplete, this);
+        this.$clip.addEventListener(egret.Event.LOOP_COMPLETE, this.$loop, this);
     };
     BaseClip.prototype.clear = function () {
-        this.$clip.removeEventListener(egret.Event.COMPLETE, this.$playEnd, this);
-        this.$clip.removeEventListener(egret.Event.LOOP_COMPLETE, this.$loopHandle, this);
-        this.$playEnd = this.$loopHandle = this.NULLFN;
+        this.$clip.removeEventListener(egret.Event.COMPLETE, this.$playComplete, this);
+        this.$clip.removeEventListener(egret.Event.LOOP_COMPLETE, this.$loop, this);
+        this.$playEnd = this.$loopHandle = null;
     };
     BaseClip.prototype.destory = function () {
-        this.clear();
         this.$clip = null;
-        this.NULLFN = null;
         this.$src = null;
+    };
+    BaseClip.prototype.$playComplete = function () {
+        this.gotoAndStop(-1);
+        if (this.$playEnd && this.$playEnd()) {
+            this.$playEnd = null;
+        }
+    };
+    BaseClip.prototype.$loop = function () {
+        if (this.$loopHandle && this.$loopHandle()) {
+            this.$loopHandle = null;
+        }
     };
     return BaseClip;
 }(win.BaseCompoment));

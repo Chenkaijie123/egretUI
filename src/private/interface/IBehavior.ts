@@ -27,6 +27,7 @@ enum direction{
 
 enum behaviorType{
 	attack,
-	run,
 	stand,
+	run,
+	die,
 }

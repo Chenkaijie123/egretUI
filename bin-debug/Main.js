@@ -169,7 +169,10 @@ var Main = (function (_super) {
         // console.log(egret.getQualifiedClassName(new win.BaseView()))
         // console.log(win.BaseView.prototype["__class__"])
         // console.log(new window["win"]["BaseView"])
-        Model.ins.initMgr().initDataProxy();
+        Main.MAIN = this;
+        Model.ins.initMgr().initDataProxy().initLayer();
+        globalData.stageWidth = this.stage.width;
+        globalData.stageHeight = this.stage.height;
         function log(a) {
             console.log(a);
         }
@@ -192,24 +195,24 @@ var Main = (function (_super) {
             DataModel.TestData.play.info = "littleChild";
             DataModel.TestData.arr[1] = 12;
         }, this, 4000);
-        var c = ComposeMgr.pop(BaseClip);
-        c.source({ json: "eff_bossfz_001_json", texture: "eff_bossfz_001_png" });
-        // let c = ComposeMgr.pop<eui.Image>(eui.Image);
-        c.x = 300;
-        c.y = 600;
-        this.addChild(c);
-        c.scaleX = c.scaleY = 3;
-        c.source({ json: "00110_json", texture: "00110_png" });
-        egret.setTimeout(function () {
-            c.source({ json: "00111_json", texture: "00111_png" });
-        }, this, 200);
-        egret.setTimeout(function () {
-            c.source({ json: "00112_json", texture: "00112_png" });
-        }, this, 310);
-        egret.setTimeout(function () {
-            c.source({ json: "001131_json", texture: "00113_png" });
-        }, this, 300);
+        // let map = new MapContainer();
+        // this.addChild(map);
+        // this.Map = map;
+        var role = CompomentMgr.pop(Actor);
+        this.addChild(role);
+        role.y = globalData.stageHeight << 1;
+        role.x = globalData.stageWidth << 1;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            role.play(behaviorType.run, e.stageX, e.stageY);
+        }, this);
+        var r = [{ name: "bob" }, { name: "lili" }];
+        var b = { name: "test" };
+        r.push(b);
+        var index = r.indexOf(b);
+        var idx = r.indexOf({ name: "bob" });
+        console.log(index, idx);
     };
+    // private Map:MapContainer;
     Main.prototype.te = function (x, y) {
         return __awaiter(this, void 0, void 0, function () {
             var clip;

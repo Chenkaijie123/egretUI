@@ -16,21 +16,21 @@ class Behavior implements IBehavior {
 
 	public getBodyUrl(): string {
 		let src: string;
-		src += `${this.excData}${srcType.body}${this.behavior}${this.direction}`;
+		src = `${this.excData || 0}${srcType.body}${this.behavior}${this.direction > direction.down?this.direction - 4:this.direction}`;
 		while (src.length < 5) src = `0${src}`;
 		return src;
 	}
 
 	public getWearponUrl(): string {
 		let src: string;
-		src += `${this.excData}${srcType.wearpom}${this.behavior}${this.direction}`;
+		src = `${this.excData || 0}${srcType.wearpom}${this.behavior}${this.direction}`;
 		while (src.length < 5) src = `0${src}`;
 		return src;
 	}
 
 	public getWingUrl(): string {
 		let src: string;
-		src += `${this.excData}${srcType.wing}${this.behavior}${this.direction}`;
+		src = `${this.excData || 0}${srcType.wing}${this.behavior}${this.direction}`;
 		while (src.length < 5) src = `0${src}`;
 		return src;
 	}
@@ -83,6 +83,7 @@ class Behavior implements IBehavior {
 }
 
 enum srcType {
+	none,
 	body,
 	wearpom,
 	wing,

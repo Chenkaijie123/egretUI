@@ -114,6 +114,7 @@ var mgr;
                         case 5:
                             e_1 = _b.sent();
                             console.log(e_1);
+                            //出错时默认数据
                             clipData = new egret.MovieClipData();
                             return [3 /*break*/, 6];
                         case 6: return [2 /*return*/, Promise.resolve(clipData)];

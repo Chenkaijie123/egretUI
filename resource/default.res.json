@@ -147,44 +147,164 @@
 			"name": "eff_bossfz_001_json"
 		},
 		{
-			"url": "assets/clip/00110.png",
+			"url": "role/00110.png",
 			"type": "image",
 			"name": "00110_png"
 		},
 		{
-			"url": "assets/clip/00111.png",
+			"url": "role/00111.png",
 			"type": "image",
 			"name": "00111_png"
 		},
 		{
-			"url": "assets/clip/00112.png",
+			"url": "role/00112.png",
 			"type": "image",
 			"name": "00112_png"
 		},
 		{
-			"url": "assets/clip/00113.png",
+			"url": "role/00113.png",
 			"type": "image",
 			"name": "00113_png"
 		},
 		{
-			"url": "assets/clip/00110.json",
+			"url": "role/00114.png",
+			"type": "image",
+			"name": "00114_png"
+		},
+		{
+			"url": "role/00120.png",
+			"type": "image",
+			"name": "00120_png"
+		},
+		{
+			"url": "role/00121.png",
+			"type": "image",
+			"name": "00121_png"
+		},
+		{
+			"url": "role/00122.png",
+			"type": "image",
+			"name": "00122_png"
+		},
+		{
+			"url": "role/00123.png",
+			"type": "image",
+			"name": "00123_png"
+		},
+		{
+			"url": "role/00124.png",
+			"type": "image",
+			"name": "00124_png"
+		},
+		{
+			"url": "role/00130.png",
+			"type": "image",
+			"name": "00130_png"
+		},
+		{
+			"url": "role/00131.png",
+			"type": "image",
+			"name": "00131_png"
+		},
+		{
+			"url": "role/00132.png",
+			"type": "image",
+			"name": "00132_png"
+		},
+		{
+			"url": "role/00133.png",
+			"type": "image",
+			"name": "00133_png"
+		},
+		{
+			"url": "role/00134.png",
+			"type": "image",
+			"name": "00134_png"
+		},
+		{
+			"url": "role/10110.png",
+			"type": "image",
+			"name": "10110_png"
+		},
+		{
+			"url": "role/00110.json",
 			"type": "json",
 			"name": "00110_json"
 		},
 		{
-			"url": "assets/clip/00113.json",
-			"type": "json",
-			"name": "00113_json"
-		},
-		{
-			"url": "assets/clip/00112.json",
+			"url": "role/00112.json",
 			"type": "json",
 			"name": "00112_json"
 		},
 		{
-			"url": "assets/clip/00111.json",
+			"url": "role/00113.json",
+			"type": "json",
+			"name": "00113_json"
+		},
+		{
+			"url": "role/00114.json",
+			"type": "json",
+			"name": "00114_json"
+		},
+		{
+			"url": "role/00121.json",
+			"type": "json",
+			"name": "00121_json"
+		},
+		{
+			"url": "role/00122.json",
+			"type": "json",
+			"name": "00122_json"
+		},
+		{
+			"url": "role/00124.json",
+			"type": "json",
+			"name": "00124_json"
+		},
+		{
+			"url": "role/00123.json",
+			"type": "json",
+			"name": "00123_json"
+		},
+		{
+			"url": "role/00130.json",
+			"type": "json",
+			"name": "00130_json"
+		},
+		{
+			"url": "role/00131.json",
+			"type": "json",
+			"name": "00131_json"
+		},
+		{
+			"url": "role/00132.json",
+			"type": "json",
+			"name": "00132_json"
+		},
+		{
+			"url": "role/00133.json",
+			"type": "json",
+			"name": "00133_json"
+		},
+		{
+			"url": "role/00134.json",
+			"type": "json",
+			"name": "00134_json"
+		},
+		{
+			"url": "role/10110.json",
+			"type": "json",
+			"name": "10110_json"
+		},
+		{
+			"url": "role/00111.json",
 			"type": "json",
 			"name": "00111_json"
+		},
+		{
+			"url": "role/00120.json",
+			"type": "json",
+			"name": "00120_json"
 		}
 	]
 }

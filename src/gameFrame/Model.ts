@@ -1,5 +1,6 @@
 /**dataModel */
 class Model {
+	public mapContainer:MapContainer;
 	public constructor() {
 	}
 	private static  _ins:Model;
@@ -21,6 +22,11 @@ class Model {
 		globalData = new GlobalData();
 		DataModel.TestData = new Proxy();
 		return this;
+	}
+
+	public initLayer():void{
+		this.mapContainer = new MapContainer();
+		Main.MAIN.addChild(this.mapContainer);
 	}
 }
 
