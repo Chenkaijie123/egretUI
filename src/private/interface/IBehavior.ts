@@ -26,8 +26,14 @@ enum direction{
 }
 
 enum behaviorType{
+	/**攻击 */
 	attack,
+	/**站立 */
 	stand,
+	/**奔跑 */
 	run,
+	/**被击杀 */
 	die,
+	/**被攻击 */
+	beHit,
 }

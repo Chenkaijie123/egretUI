@@ -54,7 +54,7 @@ namespace mgr {
 			return res;
 		}
 
-		/**把不用的对象加入缓存，由管理器管理 */
+		/**把不用的对象加入缓存，由管理器管理,实现 ICompoment 接口的对象 */
 		public push(i: any): void {
 			i.$clear && i.$clear();
 			i.activeTime = egret.getTimer();

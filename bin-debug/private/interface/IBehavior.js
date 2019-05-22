@@ -12,9 +12,15 @@ var direction;
 })(direction || (direction = {}));
 var behaviorType;
 (function (behaviorType) {
+    /**攻击 */
     behaviorType[behaviorType["attack"] = 0] = "attack";
+    /**站立 */
     behaviorType[behaviorType["stand"] = 1] = "stand";
+    /**奔跑 */
     behaviorType[behaviorType["run"] = 2] = "run";
+    /**被击杀 */
     behaviorType[behaviorType["die"] = 3] = "die";
+    /**被攻击 */
+    behaviorType[behaviorType["beHit"] = 4] = "beHit";
 })(behaviorType || (behaviorType = {}));
 //# sourceMappingURL=IBehavior.js.map

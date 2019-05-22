@@ -65,6 +65,7 @@ var Actor = (function (_super) {
         var wearponUrl = behavior.getWearponUrl();
         var wingUrl = behavior.getWingUrl();
         var pTime = 1;
+        var completeFn = null;
         //移动
         switch (behavior.behavior) {
             case behaviorType.run:
@@ -78,17 +79,16 @@ var Actor = (function (_super) {
                     _this.setAppearence(false);
                     _this.isPlayBehavior = false;
                 });
-                this.body.complete = null;
                 break;
             case behaviorType.attack:
-                this.body.complete = function () {
+                completeFn = function () {
                     _this.isPlayBehavior = false;
                     _this.setAppearence();
                     return false;
                 };
                 break;
             case behaviorType.stand:
-                this.body.complete = function () {
+                completeFn = function () {
                     _this.isPlayBehavior = false;
                     _this.AI();
                     return false;
@@ -96,13 +96,21 @@ var Actor = (function (_super) {
                 break;
             case behaviorType.die:
                 // 播放击杀动作后回收
-                this.body.complete = function () {
+                completeFn = function () {
                     _this.isPlayBehavior = false;
                     Model.ins.mapContainer.removeRole(_this);
                     return false;
                 };
                 break;
+            case behaviorType.beHit:
+                completeFn = function () {
+                    _this.isPlayBehavior = false;
+                    _this.AI();
+                    return false;
+                };
+                break;
         }
+        this.body.complete = completeFn;
         if (behavior.direction > direction.down)
             this.scaleX = -1;
         else
